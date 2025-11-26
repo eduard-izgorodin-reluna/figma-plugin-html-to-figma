@@ -1,0 +1,84 @@
+{
+  "layers": [
+    {
+      "type": "FRAME",
+      "x": 576.59375,
+      "y": 16,
+      "width": 126.8125,
+      "height": 800,
+      "name": "div.theme-family",
+      "fills": [
+        {
+          "type": "SOLID",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1
+          },
+          "opacity": 1
+        }
+      ],
+      "children": [
+        {
+          "type": "FRAME",
+          "x": 24,
+          "y": 24,
+          "width": 78.8125,
+          "height": 36,
+          "name": "button.inline-flex",
+          "fills": [
+            {
+              "type": "SOLID",
+              "color": {
+                "r": 0.984313725490196,
+                "g": 0.39215686274509803,
+                "b": 0.1568627450980392
+              },
+              "opacity": 1
+            }
+          ],
+          "cornerRadius": 6,
+          "children": [
+            {
+              "type": "TEXT",
+              "x": 0,
+              "y": 0,
+              "width": 78.8125,
+              "height": 36,
+              "name": "text-content",
+              "characters": "Button",
+              "fontSize": 14,
+              "fontFamily": "PP Object Sans",
+              "fontWeight": 500,
+              "fills": [
+                {
+                  "type": "SOLID",
+                  "color": {
+                    "r": 1,
+                    "g": 1,
+                    "b": 1
+                  },
+                  "opacity": 1
+                }
+              ]
+            }
+          ],
+          "layoutMode": "HORIZONTAL",
+          "primaryAxisAlignItems": "CENTER",
+          "counterAxisAlignItems": "CENTER",
+          "itemSpacing": 8,
+          "paddingTop": 8,
+          "paddingRight": 16,
+          "paddingBottom": 8,
+          "paddingLeft": 16
+        }
+      ],
+      "paddingTop": 24,
+      "paddingRight": 24,
+      "paddingBottom": 24,
+      "paddingLeft": 24
+    }
+  ],
+  "storyId": "components-button--default",
+  "capturedAt": "2025-11-26T20:46:48.522Z"
+}

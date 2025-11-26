@@ -1,0 +1,213 @@
+{
+  "layers": [
+    {
+      "type": "FRAME",
+      "x": 441,
+      "y": 16,
+      "width": 398,
+      "height": 800,
+      "name": "div.theme-family",
+      "fills": [
+        {
+          "type": "SOLID",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1
+          },
+          "opacity": 1
+        }
+      ],
+      "children": [
+        {
+          "type": "FRAME",
+          "x": 24,
+          "y": 24,
+          "width": 350,
+          "height": 210,
+          "name": "div.bg-card",
+          "fills": [
+            {
+              "type": "SOLID",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1
+              },
+              "opacity": 1
+            }
+          ],
+          "strokes": [
+            {
+              "type": "SOLID",
+              "color": {
+                "r": 0.9607843137254902,
+                "g": 0.9607843137254902,
+                "b": 0.9607843137254902
+              },
+              "opacity": 1
+            }
+          ],
+          "strokeWeight": 1,
+          "cornerRadius": 12,
+          "children": [
+            {
+              "type": "FRAME",
+              "x": 1,
+              "y": 25,
+              "width": 348,
+              "height": 44,
+              "name": "div.@container/card-header",
+              "fills": [],
+              "children": [
+                {
+                  "type": "TEXT",
+                  "x": 24,
+                  "y": 0,
+                  "width": 300,
+                  "height": 16,
+                  "name": "div.leading-none",
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.00784313725490196,
+                        "g": 0.03137254901960784,
+                        "b": 0.09019607843137255
+                      },
+                      "opacity": 1
+                    }
+                  ],
+                  "characters": "Card Title",
+                  "fontSize": 16,
+                  "fontFamily": "PP Object Sans",
+                  "fontWeight": 600
+                },
+                {
+                  "type": "TEXT",
+                  "x": 24,
+                  "y": 24,
+                  "width": 300,
+                  "height": 20,
+                  "name": "div.text-muted-foreground",
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.39215686274509803,
+                        "g": 0.4549019607843137,
+                        "b": 0.5450980392156862
+                      },
+                      "opacity": 1
+                    }
+                  ],
+                  "characters": "Card description goes here",
+                  "fontSize": 14,
+                  "fontFamily": "PP Object Sans",
+                  "fontWeight": 400
+                }
+              ],
+              "paddingTop": 0,
+              "paddingRight": 24,
+              "paddingBottom": 0,
+              "paddingLeft": 24
+            },
+            {
+              "type": "FRAME",
+              "x": 1,
+              "y": 93,
+              "width": 348,
+              "height": 48,
+              "name": "div.px-6",
+              "fills": [],
+              "children": [
+                {
+                  "type": "TEXT",
+                  "x": 24,
+                  "y": 0,
+                  "width": 300,
+                  "height": 48,
+                  "name": "p",
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.00784313725490196,
+                        "g": 0.03137254901960784,
+                        "b": 0.09019607843137255
+                      },
+                      "opacity": 1
+                    }
+                  ],
+                  "characters": "This is the card content area. You can put any content here.",
+                  "fontSize": 16,
+                  "fontFamily": "PP Object Sans",
+                  "fontWeight": 400
+                }
+              ],
+              "paddingTop": 0,
+              "paddingRight": 24,
+              "paddingBottom": 0,
+              "paddingLeft": 24
+            },
+            {
+              "type": "FRAME",
+              "x": 1,
+              "y": 165,
+              "width": 348,
+              "height": 20,
+              "name": "div.flex",
+              "fills": [],
+              "children": [
+                {
+                  "type": "TEXT",
+                  "x": 24,
+                  "y": 0,
+                  "width": 79.15625,
+                  "height": 20,
+                  "name": "p.text-sm",
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.39215686274509803,
+                        "g": 0.4549019607843137,
+                        "b": 0.5450980392156862
+                      },
+                      "opacity": 1
+                    }
+                  ],
+                  "characters": "Card footer",
+                  "fontSize": 14,
+                  "fontFamily": "PP Object Sans",
+                  "fontWeight": 400
+                }
+              ],
+              "layoutMode": "HORIZONTAL",
+              "primaryAxisAlignItems": "MIN",
+              "counterAxisAlignItems": "CENTER",
+              "paddingTop": 0,
+              "paddingRight": 24,
+              "paddingBottom": 0,
+              "paddingLeft": 24
+            }
+          ],
+          "layoutMode": "VERTICAL",
+          "primaryAxisAlignItems": "MIN",
+          "counterAxisAlignItems": "MIN",
+          "itemSpacing": 24,
+          "paddingTop": 24,
+          "paddingRight": 0,
+          "paddingBottom": 24,
+          "paddingLeft": 0
+        }
+      ],
+      "paddingTop": 24,
+      "paddingRight": 24,
+      "paddingBottom": 24,
+      "paddingLeft": 24
+    }
+  ],
+  "storyId": "components-card--default",
+  "capturedAt": "2025-11-26T20:52:03.767Z"
+}

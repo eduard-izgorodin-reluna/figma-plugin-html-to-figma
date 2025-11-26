@@ -1,0 +1,96 @@
+{
+  "layers": [
+    {
+      "type": "FRAME",
+      "x": 587.640625,
+      "y": 16,
+      "width": 104.703125,
+      "height": 800,
+      "name": "div.theme-family",
+      "fills": [
+        {
+          "type": "SOLID",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1
+          },
+          "opacity": 1
+        }
+      ],
+      "children": [
+        {
+          "type": "FRAME",
+          "x": 24,
+          "y": 26,
+          "width": 56.703125,
+          "height": 22,
+          "name": "span.inline-flex",
+          "fills": [
+            {
+              "type": "SOLID",
+              "color": {
+                "r": 0.984313725490196,
+                "g": 0.39215686274509803,
+                "b": 0.1568627450980392
+              },
+              "opacity": 1
+            }
+          ],
+          "strokes": [
+            {
+              "type": "SOLID",
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0
+              },
+              "opacity": 0
+            }
+          ],
+          "strokeWeight": 1,
+          "cornerRadius": 33554400,
+          "children": [
+            {
+              "type": "TEXT",
+              "x": 0,
+              "y": 0,
+              "width": 56.703125,
+              "height": 22,
+              "name": "text-content",
+              "characters": "Badge",
+              "fontSize": 12,
+              "fontFamily": "PP Object Sans",
+              "fontWeight": 500,
+              "fills": [
+                {
+                  "type": "SOLID",
+                  "color": {
+                    "r": 1,
+                    "g": 1,
+                    "b": 1
+                  },
+                  "opacity": 1
+                }
+              ]
+            }
+          ],
+          "layoutMode": "HORIZONTAL",
+          "primaryAxisAlignItems": "CENTER",
+          "counterAxisAlignItems": "CENTER",
+          "itemSpacing": 4,
+          "paddingTop": 2,
+          "paddingRight": 8,
+          "paddingBottom": 2,
+          "paddingLeft": 8
+        }
+      ],
+      "paddingTop": 24,
+      "paddingRight": 24,
+      "paddingBottom": 24,
+      "paddingLeft": 24
+    }
+  ],
+  "storyId": "components-badge--default",
+  "capturedAt": "2025-11-26T20:51:57.646Z"
+}

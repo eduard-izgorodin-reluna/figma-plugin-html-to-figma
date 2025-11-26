@@ -1,0 +1,135 @@
+{
+  "layers": [
+    {
+      "type": "FRAME",
+      "x": 412.390625,
+      "y": 16,
+      "width": 455.21875,
+      "height": 800,
+      "name": "div.theme-family",
+      "fills": [
+        {
+          "type": "SOLID",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1
+          },
+          "opacity": 1
+        }
+      ],
+      "children": [
+        {
+          "type": "FRAME",
+          "x": 24,
+          "y": 24,
+          "width": 407.21875,
+          "height": 68,
+          "name": "div.relative",
+          "fills": [
+            {
+              "type": "SOLID",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1
+              },
+              "opacity": 1
+            }
+          ],
+          "strokes": [
+            {
+              "type": "SOLID",
+              "color": {
+                "r": 0.9607843137254902,
+                "g": 0.9607843137254902,
+                "b": 0.9607843137254902
+              },
+              "opacity": 1
+            }
+          ],
+          "strokeWeight": 1,
+          "cornerRadius": 8,
+          "children": [
+            {
+              "type": "FRAME",
+              "x": 17,
+              "y": 15,
+              "width": 16,
+              "height": 16,
+              "name": "svg.[object",
+              "fills": [],
+              "children": [
+                {
+                  "type": "RECTANGLE",
+                  "x": 2.666656494140625,
+                  "y": 3.333332061767578,
+                  "width": 4,
+                  "height": 8.000003814697266,
+                  "name": "path.[object",
+                  "fills": []
+                }
+              ]
+            },
+            {
+              "type": "TEXT",
+              "x": 45,
+              "y": 13,
+              "width": 345.21875,
+              "height": 20,
+              "name": "div.col-start-2",
+              "fills": [
+                {
+                  "type": "SOLID",
+                  "color": {
+                    "r": 0.00784313725490196,
+                    "g": 0.03137254901960784,
+                    "b": 0.09019607843137255
+                  },
+                  "opacity": 1
+                }
+              ],
+              "characters": "Heads up!",
+              "fontSize": 14,
+              "fontFamily": "PP Object Sans",
+              "fontWeight": 500
+            },
+            {
+              "type": "TEXT",
+              "x": 45,
+              "y": 35,
+              "width": 345.21875,
+              "height": 20,
+              "name": "div.text-muted-foreground",
+              "fills": [
+                {
+                  "type": "SOLID",
+                  "color": {
+                    "r": 0.39215686274509803,
+                    "g": 0.4549019607843137,
+                    "b": 0.5450980392156862
+                  },
+                  "opacity": 1
+                }
+              ],
+              "characters": "You can add components to your app using the cli.",
+              "fontSize": 14,
+              "fontFamily": "PP Object Sans",
+              "fontWeight": 400
+            }
+          ],
+          "paddingTop": 12,
+          "paddingRight": 16,
+          "paddingBottom": 12,
+          "paddingLeft": 16
+        }
+      ],
+      "paddingTop": 24,
+      "paddingRight": 24,
+      "paddingBottom": 24,
+      "paddingLeft": 24
+    }
+  ],
+  "storyId": "components-alert--default",
+  "capturedAt": "2025-11-26T20:51:26.458Z"
+}
