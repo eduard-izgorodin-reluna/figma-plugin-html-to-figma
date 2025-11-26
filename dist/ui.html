@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 12px;
+      color: var(--figma-color-text);
+      background: var(--figma-color-bg);
+      padding: 16px;
+      min-height: 100vh;
+    }
+    
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--figma-color-border);
+    }
+    
+    .header-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #FB6428 0%, #FF8B5A 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    
+    .header-text h1 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--figma-color-text);
+    }
+    
+    .header-text p {
+      font-size: 11px;
+      color: var(--figma-color-text-secondary);
+    }
+    
+    /* Theme Selector */
+    .theme-section {
+      margin-bottom: 16px;
+      padding: 12px;
+      background: var(--figma-color-bg-secondary);
+      border-radius: 8px;
+      border: 1px solid var(--figma-color-border);
+    }
+    
+    .theme-section .section-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    
+    .theme-options {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .theme-option {
+      flex: 1;
+      padding: 10px 8px;
+      border: 2px solid var(--figma-color-border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+    
+    .theme-option:hover {
+      border-color: var(--figma-color-border-selected);
+    }
+    
+    .theme-option.selected {
+      border-color: var(--figma-color-bg-brand);
+      background: var(--figma-color-bg-brand-tertiary);
+    }
+    
+    .theme-option .theme-preview {
+      width: 100%;
+      height: 24px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+    
+    .theme-option.light .theme-preview {
+      background: linear-gradient(135deg, #ffffff 50%, #f4f4f5 50%);
+      border: 1px solid #e4e4e7;
+    }
+    
+    .theme-option.dark .theme-preview {
+      background: linear-gradient(135deg, #18181b 50%, #27272a 50%);
+    }
+    
+    .theme-option.family .theme-preview {
+      background: linear-gradient(135deg, #FB6428 0%, #FF8B5A 100%);
+    }
+    
+    .theme-option.advisor .theme-preview {
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    }
+    
+    .theme-option span {
+      font-size: 11px;
+      font-weight: 500;
+    }
+    
+    /* Search */
+    .search-section {
+      margin-bottom: 12px;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 10px 12px 10px 36px;
+      font-size: 12px;
+      border: 1px solid var(--figma-color-border);
+      border-radius: 8px;
+      background: var(--figma-color-bg);
+      color: var(--figma-color-text);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    
+    .search-input:focus {
+      border-color: var(--figma-color-border-selected);
+    }
+    
+    .search-wrapper {
+      position: relative;
+    }
+    
+    .search-wrapper::before {
+      content: "🔍";
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+    }
+    
+    /* Section */
+    .section {
+      margin-bottom: 16px;
+    }
+    
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--figma-color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    
+    /* Controls */
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    
+    .controls-left {
+      display: flex;
+      gap: 4px;
+    }
+    
+    .control-btn {
+      font-size: 11px;
+      color: var(--figma-color-text-brand);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+    
+    .control-btn:hover {
+      background: var(--figma-color-bg-brand-tertiary);
+    }
+    
+    .selection-count {
+      font-size: 11px;
+      color: var(--figma-color-text-tertiary);
+      padding: 4px 8px;
+      background: var(--figma-color-bg-tertiary);
+      border-radius: 4px;
+    }
+    
+    /* Category Tabs */
+    .category-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 12px;
+      padding: 4px;
+      background: var(--figma-color-bg-secondary);
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    
+    .category-tab {
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--figma-color-text-secondary);
+      background: none;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    
+    .category-tab:hover {
+      color: var(--figma-color-text);
+      background: var(--figma-color-bg-hover);
+    }
+    
+    .category-tab.active {
+      color: var(--figma-color-text);
+      background: var(--figma-color-bg);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    
+    .category-tab .count {
+      margin-left: 4px;
+      padding: 1px 5px;
+      font-size: 10px;
+      background: var(--figma-color-bg-tertiary);
+      border-radius: 10px;
+    }
+    
+    /* Components List */
+    .components-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 220px;
+      overflow-y: auto;
+      padding: 8px;
+      background: var(--figma-color-bg-secondary);
+      border-radius: 8px;
+      border: 1px solid var(--figma-color-border);
+    }
+    
+    .component-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    
+    .component-item:hover {
+      background: var(--figma-color-bg-hover);
+    }
+    
+    .component-item.selected {
+      background: var(--figma-color-bg-brand-tertiary);
+    }
+    
+    .component-item.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .component-item.disabled:hover {
+      background: transparent;
+    }
+    
+    .component-item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--figma-color-bg-brand);
+    }
+    
+    .component-item.disabled input[type="checkbox"] {
+      cursor: not-allowed;
+    }
+    
+    .component-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .component-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--figma-color-text);
+    }
+    
+    .component-meta {
+      font-size: 10px;
+      color: var(--figma-color-text-tertiary);
+    }
+    
+    .component-badge {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    
+    .component-badge.ready {
+      background: #dcfce7;
+      color: #166534;
+    }
+    
+    .component-badge.soon {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    
+    .no-results {
+      padding: 24px;
+      text-align: center;
+      color: var(--figma-color-text-tertiary);
+    }
+    
+    /* Progress */
+    .progress-section {
+      margin-top: 16px;
+      display: none;
+    }
+    
+    .progress-section.visible {
+      display: block;
+    }
+    
+    .progress-bar {
+      height: 4px;
+      background: var(--figma-color-bg-tertiary);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #FB6428 0%, #FF8B5A 100%);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+    
+    .progress-text {
+      font-size: 11px;
+      color: var(--figma-color-text-secondary);
+      text-align: center;
+    }
+    
+    /* Log Area */
+    .log-area {
+      margin-top: 12px;
+      padding: 10px;
+      background: var(--figma-color-bg-secondary);
+      border-radius: 8px;
+      border: 1px solid var(--figma-color-border);
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 10px;
+      max-height: 100px;
+      overflow-y: auto;
+      display: none;
+    }
+    
+    .log-area.visible {
+      display: block;
+    }
+    
+    .log-area p {
+      margin: 3px 0;
+      padding: 2px 0;
+    }
+    
+    .log-area .error { color: var(--figma-color-text-danger); }
+    .log-area .success { color: var(--figma-color-text-success); }
+    .log-area .info { color: var(--figma-color-text-secondary); }
+    
+    /* Buttons */
+    .button-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    
+    button.primary {
+      flex: 1;
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #FB6428 0%, #FF8B5A 100%);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    
+    button.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(251, 100, 40, 0.3);
+    }
+    
+    button.primary:active {
+      transform: translateY(0);
+    }
+    
+    button.primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    button.secondary {
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--figma-color-text);
+      background: var(--figma-color-bg);
+      border: 1px solid var(--figma-color-border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    
+    button.secondary:hover {
+      background: var(--figma-color-bg-hover);
+    }
+    
+    /* Footer info */
+    .footer-info {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--figma-color-border);
+      font-size: 10px;
+      color: var(--figma-color-text-tertiary);
+      text-align: center;
+    }
+    
+    .footer-info a {
+      color: var(--figma-color-text-brand);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">🎨</div>
+    <div class="header-text">
+      <h1>DS → Figma Generator</h1>
+      <p>@reluna-fg/ds • v1.0.0</p>
+    </div>
+  </div>
+  
+  <!-- Theme Selection -->
+  <div class="theme-section">
+    <div class="section-title">
+      <span>🎭</span> Color Theme
+    </div>
+    <div class="theme-options">
+      <div class="theme-option light selected" onclick="selectTheme('light')">
+        <div class="theme-preview"></div>
+        <span>Light</span>
+      </div>
+      <div class="theme-option dark" onclick="selectTheme('dark')">
+        <div class="theme-preview"></div>
+        <span>Dark</span>
+      </div>
+      <div class="theme-option family" onclick="selectTheme('family')">
+        <div class="theme-preview"></div>
+        <span>Family</span>
+      </div>
+      <div class="theme-option advisor" onclick="selectTheme('advisor')">
+        <div class="theme-preview"></div>
+        <span>Advisor</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Search -->
+  <div class="search-section">
+    <div class="search-wrapper">
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Search components..." 
+        oninput="filterComponents(this.value)"
+      >
+    </div>
+  </div>
+  
+  <!-- Category Tabs -->
+  <div class="category-tabs" id="categoryTabs">
+    <button class="category-tab active" data-category="all" onclick="selectCategory('all')">
+      All <span class="count" id="countAll">0</span>
+    </button>
+    <button class="category-tab" data-category="core" onclick="selectCategory('core')">
+      Core <span class="count" id="countCore">0</span>
+    </button>
+    <button class="category-tab" data-category="form" onclick="selectCategory('form')">
+      Forms <span class="count" id="countForm">0</span>
+    </button>
+    <button class="category-tab" data-category="navigation" onclick="selectCategory('navigation')">
+      Nav <span class="count" id="countNavigation">0</span>
+    </button>
+    <button class="category-tab" data-category="overlay" onclick="selectCategory('overlay')">
+      Overlay <span class="count" id="countOverlay">0</span>
+    </button>
+    <button class="category-tab" data-category="layout" onclick="selectCategory('layout')">
+      Layout <span class="count" id="countLayout">0</span>
+    </button>
+    <button class="category-tab" data-category="feedback" onclick="selectCategory('feedback')">
+      Feedback <span class="count" id="countFeedback">0</span>
+    </button>
+    <button class="category-tab" data-category="data" onclick="selectCategory('data')">
+      Data <span class="count" id="countData">0</span>
+    </button>
+  </div>
+  
+  <!-- Controls -->
+  <div class="controls">
+    <div class="controls-left">
+      <button class="control-btn" onclick="selectAll()">✓ Select All</button>
+      <button class="control-btn" onclick="selectNone()">✕ Clear</button>
+      <button class="control-btn" onclick="selectManual()">⭐ Best Quality</button>
+    </div>
+    <span class="selection-count" id="selectionCount">0 selected</span>
+  </div>
+  
+  <!-- Components List -->
+  <div id="componentsList" class="components-list">
+    <!-- Components rendered here -->
+  </div>
+  
+  <!-- Progress -->
+  <div class="progress-section" id="progressSection">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-text" id="progressText">Generating...</div>
+  </div>
+  
+  <!-- Log Area -->
+  <div class="log-area" id="logArea">
+    <div id="logs"></div>
+  </div>
+  
+  <!-- Buttons -->
+  <div class="button-group">
+    <button class="secondary" onclick="cancel()">Cancel</button>
+    <button id="generateBtn" class="primary" onclick="generate()">
+      🚀 Generate Components
+    </button>
+  </div>
+  
+  <!-- Footer -->
+  <div class="footer-info">
+    Made with ❤️ by Reluna Family • Components from @reluna-fg/ds
+  </div>
+
+  <script>
+    // State
+    let selectedTheme = 'light';
+    let selectedCategory = 'all';
+    let searchQuery = '';
+    
+    // Components with WORKING generators (9 total)
+    const AVAILABLE_GENERATORS = ['button', 'input', 'badge', 'card', 'checkbox', 'switch', 'avatar', 'label', 'separator'];
+    
+    // All DS components with metadata
+    const allComponents = [
+      // ⭐ READY - Have working generators
+      { name: 'button', category: 'core', quality: 'ready', variants: 7, slots: ['label'] },
+      { name: 'input', category: 'core', quality: 'ready', variants: 4, slots: ['placeholder'] },
+      { name: 'checkbox', category: 'core', quality: 'ready', variants: 4, slots: ['checkmark'] },
+      { name: 'switch', category: 'core', quality: 'ready', variants: 4, slots: ['thumb'] },
+      { name: 'label', category: 'core', quality: 'ready', variants: 3, slots: ['text', 'required'] },
+      { name: 'separator', category: 'core', quality: 'ready', variants: 2, slots: [] },
+      { name: 'badge', category: 'core', quality: 'ready', variants: 4, slots: ['text'] },
+      { name: 'card', category: 'core', quality: 'ready', variants: 2, slots: ['header', 'content'] },
+      { name: 'avatar', category: 'core', quality: 'ready', variants: 4, slots: ['image', 'fallback'] },
+      
+      // 🔧 COMING SOON - No generators yet
+      { name: 'alert', category: 'feedback', quality: 'soon', variants: 2, slots: ['title', 'description'] },
+      { name: 'dialog', category: 'overlay', quality: 'soon', variants: 1, slots: ['trigger', 'content', 'header', 'footer', 'title', 'description'] },
+      { name: 'sheet', category: 'overlay', quality: 'soon', variants: 1, slots: ['trigger', 'content', 'header', 'footer', 'title'] },
+      { name: 'drawer', category: 'overlay', quality: 'soon', variants: 1, slots: ['trigger', 'content', 'header', 'footer'] },
+      { name: 'tabs', category: 'navigation', quality: 'soon', variants: 1, slots: ['list', 'trigger', 'content'] },
+      { name: 'accordion', category: 'layout', quality: 'soon', variants: 1, slots: ['item', 'trigger', 'content'] },
+      { name: 'popover', category: 'overlay', quality: 'soon', variants: 1, slots: ['trigger', 'content', 'anchor'] },
+      { name: 'tooltip', category: 'overlay', quality: 'soon', variants: 1, slots: ['trigger', 'content'] },
+      { name: 'dropdown-menu', category: 'navigation', quality: 'soon', variants: 1, slots: ['trigger', 'content', 'item', 'separator'] },
+      { name: 'select', category: 'form', quality: 'soon', variants: 1, slots: ['trigger', 'content', 'item'] },
+      { name: 'breadcrumb', category: 'navigation', quality: 'soon', variants: 1, slots: ['list', 'item', 'link', 'separator'] },
+      { name: 'form', category: 'form', quality: 'soon', variants: 1, slots: ['item', 'label', 'control', 'description', 'message'] },
+      { name: 'table', category: 'data', quality: 'soon', variants: 1, slots: ['header', 'body', 'row', 'cell'] },
+      { name: 'toast', category: 'feedback', quality: 'soon', variants: 5, slots: ['title', 'description'] },
+      { name: 'empty', category: 'feedback', quality: 'soon', variants: 2, slots: ['icon', 'title', 'description', 'content'] },
+      { name: 'item', category: 'layout', quality: 'soon', variants: 6, slots: ['media', 'content', 'title', 'description', 'actions'] },
+      { name: 'field', category: 'form', quality: 'soon', variants: 1, slots: ['label', 'control', 'description', 'error'] },
+      { name: 'pagination', category: 'navigation', quality: 'soon', variants: 1, slots: ['content', 'item', 'link', 'ellipsis'] },
+      { name: 'radio-group', category: 'form', quality: 'soon', variants: 1, slots: ['item', 'indicator'] },
+      { name: 'slider', category: 'form', quality: 'soon', variants: 1, slots: ['track', 'range', 'thumb'] },
+      { name: 'navigation-menu', category: 'navigation', quality: 'soon', variants: 1, slots: ['list', 'item', 'trigger', 'content', 'link'] },
+      { name: 'command', category: 'navigation', quality: 'soon', variants: 1, slots: ['input', 'list', 'group', 'item'] },
+      { name: 'context-menu', category: 'navigation', quality: 'soon', variants: 1, slots: ['trigger', 'content', 'item'] },
+      { name: 'menubar', category: 'navigation', quality: 'soon', variants: 1, slots: ['menu', 'trigger', 'content', 'item'] },
+      { name: 'hover-card', category: 'overlay', quality: 'soon', variants: 1, slots: ['trigger', 'content'] },
+      { name: 'collapsible', category: 'layout', quality: 'soon', variants: 1, slots: ['trigger', 'content'] },
+      { name: 'carousel', category: 'layout', quality: 'soon', variants: 1, slots: ['content', 'item', 'previous', 'next'] },
+      { name: 'alert-dialog', category: 'overlay', quality: 'soon', variants: 1, slots: ['trigger', 'content', 'title', 'description'] },
+      { name: 'scroll-area', category: 'layout', quality: 'soon', variants: 1, slots: ['viewport', 'scrollbar', 'thumb'] },
+      { name: 'resizable', category: 'layout', quality: 'soon', variants: 1, slots: ['panel', 'handle'] },
+      { name: 'input-otp', category: 'form', quality: 'soon', variants: 1, slots: ['group', 'slot', 'separator'] },
+      { name: 'input-group', category: 'form', quality: 'soon', variants: 4, slots: ['addon', 'control'] },
+      { name: 'sidebar', category: 'navigation', quality: 'soon', variants: 6, slots: ['header', 'content', 'footer', 'menu'] },
+    ];
+    
+    // Update category counts
+    function updateCounts() {
+      const readyCount = allComponents.filter(c => AVAILABLE_GENERATORS.includes(c.name)).length;
+      const counts = { all: allComponents.length, ready: readyCount };
+      allComponents.forEach(c => {
+        counts[c.category] = (counts[c.category] || 0) + 1;
+      });
+      
+      document.getElementById('countAll').textContent = `${counts.all} (${readyCount} ready)`;
+      document.getElementById('countCore').textContent = counts.core || 0;
+      document.getElementById('countForm').textContent = counts.form || 0;
+      document.getElementById('countNavigation').textContent = counts.navigation || 0;
+      document.getElementById('countOverlay').textContent = counts.overlay || 0;
+      document.getElementById('countLayout').textContent = counts.layout || 0;
+      document.getElementById('countFeedback').textContent = counts.feedback || 0;
+      document.getElementById('countData').textContent = counts.data || 0;
+    }
+    
+    // Render components
+    function renderComponents() {
+      const filtered = allComponents.filter(comp => {
+        const matchesCategory = selectedCategory === 'all' || comp.category === selectedCategory;
+        const matchesSearch = searchQuery === '' || 
+          comp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          comp.category.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch;
+      });
+      
+      const container = document.getElementById('componentsList');
+      
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="no-results">No components found</div>';
+        return;
+      }
+      
+      container.innerHTML = filtered.map(comp => {
+        const isAvailable = AVAILABLE_GENERATORS.includes(comp.name);
+        const disabledClass = isAvailable ? '' : 'disabled';
+        const disabledAttr = isAvailable ? '' : 'disabled';
+        const badgeText = isAvailable ? '⭐ Ready' : '🔧 Soon';
+        const badgeClass = isAvailable ? 'ready' : 'soon';
+        
+        return `
+          <div class="component-item ${disabledClass}" onclick="${isAvailable ? `toggleComponent('${comp.name}')` : ''}">
+            <input 
+              type="checkbox" 
+              id="${comp.name}" 
+              value="${comp.name}"
+              ${disabledAttr}
+              onclick="event.stopPropagation(); updateSelectionCount()"
+            >
+            <div class="component-info">
+              <span class="component-name">${formatName(comp.name)}</span>
+              <span class="component-meta">${comp.variants} variant${comp.variants > 1 ? 's' : ''} • ${comp.slots.length} slots</span>
+            </div>
+            <span class="component-badge ${badgeClass}">${badgeText}</span>
+          </div>
+        `;
+      }).join('');
+      
+      updateSelectionCount();
+    }
+    
+    function formatName(name) {
+      return name.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    }
+    
+    function toggleComponent(name) {
+      // Only allow toggling available components
+      if (!AVAILABLE_GENERATORS.includes(name)) return;
+      
+      const checkbox = document.getElementById(name);
+      if (checkbox) {
+        checkbox.checked = !checkbox.checked;
+        updateSelectionCount();
+      }
+    }
+    
+    function selectTheme(theme) {
+      selectedTheme = theme;
+      document.querySelectorAll('.theme-option').forEach(el => el.classList.remove('selected'));
+      document.querySelector(`.theme-option.${theme}`).classList.add('selected');
+    }
+    
+    function selectCategory(category) {
+      selectedCategory = category;
+      document.querySelectorAll('.category-tab').forEach(el => el.classList.remove('active'));
+      document.querySelector(`[data-category="${category}"]`).classList.add('active');
+      renderComponents();
+    }
+    
+    function filterComponents(query) {
+      searchQuery = query;
+      renderComponents();
+    }
+    
+    function selectAll() {
+      // Only select components with available generators
+      allComponents.forEach(comp => {
+        const el = document.getElementById(comp.name);
+        if (el && AVAILABLE_GENERATORS.includes(comp.name)) {
+          el.checked = true;
+        }
+      });
+      updateSelectionCount();
+    }
+    
+    function selectNone() {
+      allComponents.forEach(comp => {
+        const el = document.getElementById(comp.name);
+        if (el) el.checked = false;
+      });
+      updateSelectionCount();
+    }
+    
+    function selectManual() {
+      selectNone();
+      // Select only ready components (those with generators)
+      allComponents.filter(c => c.quality === 'ready').forEach(comp => {
+        const el = document.getElementById(comp.name);
+        if (el) el.checked = true;
+      });
+      updateSelectionCount();
+    }
+    
+    function updateSelectionCount() {
+      const count = allComponents.filter(c => {
+        const el = document.getElementById(c.name);
+        return el?.checked && AVAILABLE_GENERATORS.includes(c.name);
+      }).length;
+      document.getElementById('selectionCount').textContent = `${count} selected`;
+    }
+    
+    function getSelected() {
+      return allComponents
+        .filter(comp => {
+          const el = document.getElementById(comp.name);
+          return el?.checked && AVAILABLE_GENERATORS.includes(comp.name);
+        })
+        .map(comp => comp.name);
+    }
+    
+    function generate() {
+      const selected = getSelected();
+      if (selected.length === 0) {
+        alert('Please select at least one component');
+        return;
+      }
+      
+      document.getElementById('generateBtn').disabled = true;
+      document.getElementById('progressSection').classList.add('visible');
+      document.getElementById('logArea').classList.add('visible');
+      document.getElementById('logs').innerHTML = '<p class="info">🚀 Starting generation...</p>';
+      
+      parent.postMessage({ 
+        pluginMessage: { 
+          type: 'generate', 
+          components: selected,
+          theme: selectedTheme
+        } 
+      }, '*');
+    }
+    
+    function cancel() {
+      parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+    }
+    
+    function log(message, type = 'info') {
+      const logs = document.getElementById('logs');
+      const p = document.createElement('p');
+      p.className = type;
+      p.textContent = message;
+      logs.appendChild(p);
+      logs.scrollTop = logs.scrollHeight;
+    }
+    
+    function updateProgress(current, total) {
+      const percent = Math.round((current / total) * 100);
+      document.getElementById('progressFill').style.width = `${percent}%`;
+      document.getElementById('progressText').textContent = `${current} of ${total} components (${percent}%)`;
+    }
+    
+    // Listen for messages from plugin
+    window.onmessage = (event) => {
+      const msg = event.data.pluginMessage;
+      if (!msg) return;
+      
+      if (msg.type === 'log') {
+        log(msg.message, 'success');
+      }
+      if (msg.type === 'error') {
+        log(msg.message, 'error');
+      }
+      if (msg.type === 'progress') {
+        updateProgress(msg.current, msg.total);
+      }
+      if (msg.type === 'complete') {
+        log(`\n🎉 Done! Generated ${msg.count} components.`, 'success');
+        document.getElementById('progressFill').style.width = '100%';
+        document.getElementById('progressText').textContent = `Complete! ${msg.count} components generated`;
+        document.getElementById('generateBtn').disabled = false;
+        document.getElementById('generateBtn').textContent = '✓ Generation Complete';
+        
+        // Show node IDs
+        if (msg.results && msg.results.length > 0) {
+          log('\n📋 Node IDs for Code Connect:', 'info');
+          msg.results.forEach(r => {
+            log(`  ${r.name}: ${r.nodeId}`, 'info');
+          });
+        }
+      }
+    };
+    
+    // Init
+    updateCounts();
+    renderComponents();
+  </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build output (keep in git for Figma plugin import)
+# dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Optional
+*.tgz
+.npm

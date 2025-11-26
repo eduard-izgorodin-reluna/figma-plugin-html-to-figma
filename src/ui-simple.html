@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 12px;
+      color: var(--figma-color-text);
+      background: var(--figma-color-bg);
+      padding: 16px;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--figma-color-border);
+    }
+    
+    .header-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #FB6428 0%, #FF8B5A 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    
+    .header-text h1 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    
+    .header-text p {
+      font-size: 11px;
+      color: var(--figma-color-text-secondary);
+    }
+    
+    .section-title {
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .components-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .component-item {
+      padding: 12px;
+      border: 2px solid var(--figma-color-border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+    
+    .component-item:hover {
+      border-color: var(--figma-color-border-selected);
+      background: var(--figma-color-bg-hover);
+    }
+    
+    .component-item.selected {
+      border-color: #FB6428;
+      background: rgba(251, 100, 40, 0.1);
+    }
+    
+    .component-item .icon {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+    
+    .component-item .name {
+      font-weight: 500;
+      font-size: 11px;
+    }
+    
+    .component-item .variants {
+      font-size: 10px;
+      color: var(--figma-color-text-secondary);
+      margin-top: 4px;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    
+    button {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    
+    .btn-primary {
+      background: #FB6428;
+      color: white;
+      border: none;
+    }
+    
+    .btn-primary:hover {
+      background: #e55a22;
+    }
+    
+    .btn-primary:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--figma-color-border);
+      color: var(--figma-color-text);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--figma-color-bg-hover);
+    }
+    
+    .select-actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 11px;
+    }
+    
+    .select-actions a {
+      color: #FB6428;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    
+    .select-actions a:hover {
+      text-decoration: underline;
+    }
+    
+    .status {
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      display: none;
+    }
+    
+    .status.success {
+      display: block;
+      background: rgba(16, 185, 129, 0.1);
+      color: #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    
+    .status.error {
+      display: block;
+      background: rgba(239, 68, 68, 0.1);
+      color: #EF4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    
+    .status.progress {
+      display: block;
+      background: rgba(59, 130, 246, 0.1);
+      color: #3B82F6;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    
+    .log {
+      margin-top: 12px;
+      padding: 10px;
+      background: var(--figma-color-bg-secondary);
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 10px;
+      max-height: 150px;
+      overflow-y: auto;
+      display: none;
+    }
+    
+    .log.visible {
+      display: block;
+    }
+    
+    .log-entry {
+      padding: 2px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-icon">🎨</div>
+    <div class="header-text">
+      <h1>DS → Figma Generator</h1>
+      <p>@reluna-fg/ds • v1.0.0 (9 components)</p>
+    </div>
+  </div>
+
+  <div class="section-title">📦 Available Components</div>
+  
+  <div class="select-actions">
+    <a onclick="selectAll()">✓ Select All</a>
+    <a onclick="clearAll()">✕ Clear</a>
+    <span style="color: var(--figma-color-text-secondary);" id="selected-count">0 selected</span>
+  </div>
+  
+  <div class="components-grid" id="components-grid"></div>
+  
+  <div class="actions">
+    <button class="btn-secondary" onclick="cancel()">Cancel</button>
+    <button class="btn-primary" id="generate-btn" onclick="generate()" disabled>Generate</button>
+  </div>
+  
+  <div class="status" id="status"></div>
+  <div class="log" id="log"></div>
+
+  <script>
+    // Components that actually have generators
+    const COMPONENTS = [
+      { id: 'button', name: 'Button', icon: '🔘', variants: '7 variants × 4 sizes' },
+      { id: 'input', name: 'Input', icon: '📝', variants: '4 states' },
+      { id: 'badge', name: 'Badge', icon: '🏷️', variants: '6 variants' },
+      { id: 'card', name: 'Card', icon: '🃏', variants: '2 variants' },
+      { id: 'checkbox', name: 'Checkbox', icon: '☑️', variants: '4 states' },
+      { id: 'switch', name: 'Switch', icon: '🔛', variants: '4 states' },
+      { id: 'avatar', name: 'Avatar', icon: '👤', variants: '4 sizes × 2 types' },
+      { id: 'label', name: 'Label', icon: '🏷️', variants: '3 states' },
+      { id: 'separator', name: 'Separator', icon: '➖', variants: '2 orientations' },
+    ];
+    
+    let selected = new Set();
+    
+    function render() {
+      const grid = document.getElementById('components-grid');
+      grid.innerHTML = COMPONENTS.map(c => `
+        <div class="component-item ${selected.has(c.id) ? 'selected' : ''}" 
+             onclick="toggle('${c.id}')">
+          <div class="icon">${c.icon}</div>
+          <div class="name">${c.name}</div>
+          <div class="variants">${c.variants}</div>
+        </div>
+      `).join('');
+      
+      document.getElementById('selected-count').textContent = `${selected.size} selected`;
+      document.getElementById('generate-btn').disabled = selected.size === 0;
+    }
+    
+    function toggle(id) {
+      if (selected.has(id)) {
+        selected.delete(id);
+      } else {
+        selected.add(id);
+      }
+      render();
+    }
+    
+    function selectAll() {
+      COMPONENTS.forEach(c => selected.add(c.id));
+      render();
+    }
+    
+    function clearAll() {
+      selected.clear();
+      render();
+    }
+    
+    function generate() {
+      const components = Array.from(selected);
+      if (components.length === 0) return;
+      
+      showStatus('progress', `⏳ Generating ${components.length} components...`);
+      document.getElementById('log').classList.add('visible');
+      document.getElementById('log').innerHTML = '';
+      
+      parent.postMessage({
+        pluginMessage: { type: 'generate', components }
+      }, '*');
+    }
+    
+    function cancel() {
+      parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+    }
+    
+    function showStatus(type, message) {
+      const status = document.getElementById('status');
+      status.className = 'status ' + type;
+      status.textContent = message;
+    }
+    
+    function addLog(message) {
+      const log = document.getElementById('log');
+      log.innerHTML += `<div class="log-entry">${message}</div>`;
+      log.scrollTop = log.scrollHeight;
+    }
+    
+    // Handle messages from plugin
+    window.onmessage = (e) => {
+      const msg = e.data.pluginMessage;
+      if (!msg) return;
+      
+      if (msg.type === 'progress') {
+        showStatus('progress', `⏳ Generating ${msg.current}/${msg.total}...`);
+      }
+      
+      if (msg.type === 'log') {
+        addLog(msg.message);
+      }
+      
+      if (msg.type === 'error') {
+        addLog(`❌ ${msg.message}`);
+      }
+      
+      if (msg.type === 'complete') {
+        showStatus('success', `✅ Generated ${msg.count} components!`);
+      }
+    };
+    
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
